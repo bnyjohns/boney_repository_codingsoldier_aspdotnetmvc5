@@ -1,0 +1,45 @@
+﻿@model IPagedList<CodingSoldier.Models.StudyViewModel>
+
+@{
+    ViewBag.Title = "Studies - Boney Johns";
+}
+
+<h3>Studies</h3>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <b>@Html.Raw(item.StudyHeader)</b>
+            @if (User.IsInRole("Admin"))
+            {
+                <text>(</text>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <text>|</text>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this study?');" })
+                <text>)</text>
+            }
+            <br />
+            <i>Category: @item.CategoryName</i>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-12 col-sm-2">
+            <pre>@Html.Raw(item.StudyContent)</pre>
+        </div>
+    </div>
+    <div class="row" style="margin-top:5px">
+    </div>
+}
+
+<div id='Paging' style="text-align:center">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
