@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace CodingSoldier.ApiControllers
 {
     [Authorize]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public abstract class BaseApiController<TModel, TEntity> : ApiController
                                                                where TModel : class, IModel
                                                                where TEntity: IApiEntity
