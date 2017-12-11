@@ -1,8 +1,9 @@
-﻿@model IPagedList<CodingSoldier.Models.StudyViewModel>
+﻿@model IEnumerable<CodingSoldier.Models.StudyViewModel>
 
 @{
     ViewBag.Title = "Studies - Boney Johns";
-}
+    var model = Model as IPagedList<CodingSoldier.Models.StudyViewModel>;
+ }
 
 <h3>Studies</h3>
 
@@ -12,6 +13,18 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
+
+@if (model != null)
+{
+    <div style="float:right">
+        @using (Html.BeginForm("Search", "Studies", FormMethod.Post))
+        {
+            @Html.TextBox("title", "", new { placeholder = "enter the search text!" })
+            <input type="submit" title="Search" value="Search" />
+        }
+    </div>
+}
+
 
 @foreach (var item in Model)
 {
@@ -38,8 +51,13 @@
     </div>
 }
 
-<div id='Paging' style="text-align:center">
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-</div>
+@if (model != null)
+{
+    <div id='Paging' style="text-align:center">
+        Page @(model.PageCount < model.PageNumber ? 0 : model.PageNumber) of @(model.PageCount)
+
+        @Html.PagedListPager(model, page => Url.Action("Index", new { page }))
+    </div>
+}
+

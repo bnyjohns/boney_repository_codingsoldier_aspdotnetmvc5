@@ -31,12 +31,17 @@ namespace CodingSoldier.Controllers
         }        
 
         [AllowAnonymous]
-        public virtual ActionResult Index(int page = 1, int pageSize = 2)
-        {
-            var context = ControllerContext;
+        public virtual ActionResult Index(int page = 1, int pageSize = 2, string header = null)
+        {            
             var modelList = _modelRepository.GetAll().OrderBy(m => m.Id).ToPagedList(page, pageSize);
             var model = new StaticPagedList<ViewModel>(Mapper.Map<IEnumerable<ViewModel>>(modelList), modelList.GetMetaData());
             return View(model);
+        }        
+
+        [AllowAnonymous]
+        public virtual ActionResult Search(string title)
+        {
+            throw new NotImplementedException();
         }
 
         private IEnumerable<SelectListItem> GetAllCategories()

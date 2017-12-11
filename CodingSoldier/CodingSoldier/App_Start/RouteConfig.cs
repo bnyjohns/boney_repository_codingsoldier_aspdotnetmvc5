@@ -8,7 +8,13 @@ namespace CodingSoldier
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");            
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Search",
+                url: "{controller}/search/{title}",
+                defaults: new { controller = "Home", action = "Search" }
+            );
 
             routes.MapRoute(
                 name: "Default",
