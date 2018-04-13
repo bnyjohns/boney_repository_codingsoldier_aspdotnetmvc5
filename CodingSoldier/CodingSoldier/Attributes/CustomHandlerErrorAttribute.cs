@@ -10,7 +10,7 @@ namespace CodingSoldier.Attributes
 
         public CustomHandleErrorAttribute()
         {
-            _logger = LogManager.GetLogger(GetType());
+            _logger = log4net.LogManager.GetLogger(GetType());
         }
 
         public override void OnException(ExceptionContext filterContext)
