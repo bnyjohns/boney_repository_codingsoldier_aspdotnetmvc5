@@ -11,6 +11,7 @@ namespace CodingSoldier.Attributes
         public CustomHandleErrorAttribute()
         {
             _logger = log4net.LogManager.GetLogger(GetType());
+            var a = "testcheckin content";
         }
 
         public override void OnException(ExceptionContext filterContext)
